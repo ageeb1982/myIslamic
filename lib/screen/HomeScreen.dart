@@ -78,7 +78,7 @@ var inkColor=Colors.lightGreen[50];
  //الأذكار
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      zikrSCREEN
+      zikrSCREENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
       child: 
@@ -99,7 +99,7 @@ var inkColor=Colors.lightGreen[50];
 //التفسير
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      tafseerSCREEN
+      tafseerSCREENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
       child:
@@ -119,7 +119,7 @@ var inkColor=Colors.lightGreen[50];
 //الحديث
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      hadethSCREEN
+      hadithSCREENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
    child:
@@ -140,7 +140,7 @@ var inkColor=Colors.lightGreen[50];
 //الفتاوى
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      fatwaSCREEN
+      fatwaSCREENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
    child:
@@ -161,7 +161,7 @@ var inkColor=Colors.lightGreen[50];
 //مسائل مهمة
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      importantSCREEEN
+      importantSCREEENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
        child:
@@ -181,7 +181,7 @@ var inkColor=Colors.lightGreen[50];
 //شباب المستقبل
  InkWell(onTap: () {Navigator.pushNamed(context, 
      //link
-      futureSCREEN
+      futureSCREENx
       );},child:Card(elevation: 1.0,  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),),
       child: Column(children: <Widget>[AspectRatio(aspectRatio: 15.0 / 12.0,
       child:

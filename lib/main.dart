@@ -4,6 +4,7 @@ import 'package:myislamic/screen/HomeScreen.dart';
 import 'package:myislamic/screen/Intro.dart';
 import 'package:myislamic/constant/Constant.dart';
 import 'package:myislamic/screen/OtherScreen/MyScoff.dart';
+import 'package:myislamic/screen/TafseerScreen/tafseerScreen.dart';
 import 'package:myislamic/screen/ZikrScreen/ZikrScreen.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 void main() => runApp(MaterialApp(
@@ -11,14 +12,14 @@ void main() => runApp(MaterialApp(
             debugShowCheckedModeBanner: false,
 
       routes: <String, WidgetBuilder>{
-       introSCREEN: (BuildContext context) => IntroScreen(),
-       homeSCREEN: (BuildContext context) => HomeScreen(),
-        zikrSCREEN: (BuildContext context) => ZikrScreen(),
-        tafseerSCREEN: (BuildContext context) =>MyPage(title: tafseerTITLE),
-        hadethSCREEN: (BuildContext context) => MyPage(title: hadithTITLE),
-        fatwaSCREEN: (BuildContext context) =>  MyPage(title: fatwaTITLE),
-        importantSCREEEN: (BuildContext context) => MyPage(title: importantTITLE),
-        futureSCREEN: (BuildContext context) => MyPage(title: futureTITLE),
+       introSCREENx: (BuildContext context) => IntroScreen(),
+       homeSCREENx: (BuildContext context) => HomeScreen(),
+        zikrSCREENx: (BuildContext context) => ZikrScreen(),
+        tafseerSCREENx: (BuildContext context) => TafseerScreen(title: tafseerTITLE),
+        hadithSCREENx: (BuildContext context) => MyPage(title: hadithTITLE),
+        fatwaSCREENx: (BuildContext context) =>  MyPage(title: fatwaTITLE),
+        importantSCREEENx: (BuildContext context) => MyPage(title: importantTITLE),
+        futureSCREENx: (BuildContext context) => MyPage(title: futureTITLE),
       },
     ));
 

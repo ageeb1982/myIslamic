@@ -53,7 +53,7 @@ border: Border.all(
         subtitle: Text(homeSubTITLE),
 
         onTap: () {
-          Navigator.pushNamed(context, homeSCREEN);
+          Navigator.pushNamed(context, homeSCREENx);
           // ...
         },
       ))),
@@ -71,7 +71,7 @@ border: Border.all(
         ),
         title: Text(zikrTITLE,style: titleStyle,),
         subtitle: Text(zikrSubTITLE,  ),
-        onTap: () {          Navigator.pushNamed(context, zikrSCREEN);        },
+        onTap: () {          Navigator.pushNamed(context, zikrSCREENx);        },
       )),
     
     //التفسير
@@ -101,7 +101,7 @@ border: Border.all(
         ),
         title: Text(hadithTITLE,style:titleStyle),
         subtitle: Text(hadithSubTITLE,),
-        onTap: () { Navigator.pushNamed(context, hadethSCREEN); },
+        onTap: () { Navigator.pushNamed(context, hadithSCREENx); },
       )),
     
     //الفتاوى
@@ -116,7 +116,7 @@ border: Border.all(
         ),
         title: Text(fatwaTITLE,style: titleStyle,),
         subtitle: Text(fatwaSubTITLE,),
-        onTap: () { Navigator.pushNamed(context, fatwaSCREEN); },
+        onTap: () { Navigator.pushNamed(context, fatwaSCREENx); },
       )),
     
     //مسائل مهمة
@@ -131,7 +131,7 @@ border: Border.all(
         ),
         title: Text(importantTITLE,style: titleStyle,),
         subtitle: Text(importantSubTITLE,),
-        onTap: () { Navigator.pushNamed(context,importantSCREEEN); },
+        onTap: () { Navigator.pushNamed(context,importantSCREEENx); },
       )),
 
 //شباب المستقبل
@@ -146,7 +146,7 @@ border: Border.all(
         ),
         title: Text(futureTITLE,style: titleStyle,),
         subtitle: Text(futureSubTITLE,),
-        onTap: () { Navigator.pushNamed(context, fatwaSCREEN); },
+        onTap: () { Navigator.pushNamed(context, fatwaSCREENx); },
       )),
 
 

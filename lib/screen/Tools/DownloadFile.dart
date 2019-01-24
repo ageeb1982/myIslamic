@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:myislamic/constant/reg.dart';
 import 'package:path_provider/path_provider.dart';
-
+ 
 // void main() => runApp(MaterialApp(
 //       home: MyApp(),
 //       debugShowCheckedModeBanner: false,
@@ -17,29 +18,41 @@ import 'package:path_provider/path_provider.dart';
 // }
 
 
-class DownloadFileX extends StatefulWidget {
-  @override
-  DownloadFileXState createState() {
-    return new DownloadFileXState();
-  }
-}
-final key = new GlobalKey<DownloadFileXState>();
-
-
-
-
-class DownloadFileXState extends State<DownloadFileX> {
- String url = "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
+class DownloadFileOrg extends StatefulWidget
+ {
+   String url = "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
   bool downloading = false;
   var progressString = "";
 String fileName,displayName;
-DownloadFileXState({this.url,this.fileName,this.displayName});
+
+  bool run=false;
+  
+  DownloadFileOrg({this.url,this.fileName,this.displayName,this.run=true});
+  
+  @override
+  DownloadFileX createState() {
+    return new DownloadFileX(url: url,fileName: this.fileName,displayName: this.displayName,downloading: this.run);
+  }
+}
+final key = new GlobalKey<DownloadFileX>();
+
+
+
+
+class DownloadFileX extends State<DownloadFileOrg> {
+ String url = "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
+  bool downloading = false;
+  bool finsh=false;
+  var progressString = "";
+String fileName,displayName;
+String  filePath;
+DownloadFileX({this.url,this.fileName,this.displayName,this.downloading});
 
   @override
   void initState() {
     super.initState();
 
-    downloadFile();
+   if(downloading) downloadFile();
   }
 
   Future<void> downloadFile() async {
@@ -47,23 +60,30 @@ DownloadFileXState({this.url,this.fileName,this.displayName});
 
     try {
       var dir = await getApplicationDocumentsDirectory();
-
-      await dio.download(url, "${dir.path}/${this.fileName}.db",
+  filePath="${dir.path}/${this.fileName}";
+      await dio.download(url, filePath,
           onProgress: (rec, total) {
         print("Rec: $rec , Total: $total");
 
         setState(() {
           downloading = true;
-          progressString = "تحميل ملفات $displayName  => "+((rec / total) * 100).toStringAsFixed(0) + "%";
+          progressString = "تحميل ملفات $displayName \n => "+((rec / total) * 100).toStringAsFixed(0) + "%";
         });
       });
     } catch (e) {
       print(e);
     }
 
-    setState(() {
+    setState(()
+     {
+    
       downloading = false;
+      finsh=true;
       progressString = "اكتمل تحميل $displayName بنجاح";
+ extractFileZip(filePath);
+
+
+
     });
     print("اكتمل تحميل $displayName بنجاح");
   }
@@ -87,7 +107,7 @@ DownloadFileXState({this.url,this.fileName,this.displayName});
                         height: 20.0,
                       ),
                       Text(
-                        "Downloading File: $progressString",
+                        "$progressString",
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -96,7 +116,7 @@ DownloadFileXState({this.url,this.fileName,this.displayName});
                   ),
                 ),
               )
-            : Text("لا يوجد بيانات"),
+            :finsh? Text(progressString): Text("لا يوجد بيانات"),
       );
    
   }

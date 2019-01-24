@@ -15,16 +15,16 @@ var inkColor=Colors.lightGreen[50];
 
  *SCREEN الشاشات
   */
-String homeSCREEN='/home';
-String introSCREEN='/intro';
-String zikrSCREEN='/zikr';
-String tafseerSCREEN='/tafseer';
-String hadethSCREEN='/hadeth';
-String fatwaSCREEN='/fatwa';
-String importantSCREEEN='/important';
-String futureSCREEN='/future';
-String itemDetailsSCREEN='ITEM_DETAILS_SCREEN';
-String gridItemDetailsSCREEN='GRID_ITEM_DETAILS_SCREEN';
+String homeSCREENx='/home';
+String introSCREENx='/intro';
+String zikrSCREENx='/zikr';
+String tafseerSCREENx='/tafseer';
+String hadithSCREENx='/hadeth';
+String fatwaSCREENx='/fatwa';
+String importantSCREEENx='/important';
+String futureSCREENx='/future';
+String itemDetailsSCREENx='ITEM_DETAILS_SCREEN';
+String gridItemDetailsSCREENx='GRID_ITEM_DETAILS_SCREEN';
 
 String appName='مساعد المسلم اليومي';
 

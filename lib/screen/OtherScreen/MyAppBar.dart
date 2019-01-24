@@ -10,7 +10,7 @@ AppBar appbar=new AppBar(
       backgroundColor: Colors.blue[200],
       // ThemeData(primaryColor: Colors.red),
 title: Text(appName),
-leading: IconButton(icon: Icon(FontAwesomeIcons.home),onPressed: (){ Navigator.pushNamed(context, homeSCREEN);},),
+leading: IconButton(icon: Icon(FontAwesomeIcons.home),onPressed: (){ Navigator.pushNamed(context, homeSCREENx);},),
 );
 
 return appbar;

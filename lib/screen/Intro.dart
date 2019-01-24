@@ -22,7 +22,7 @@ class IntroScreenState extends State<IntroScreen>
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed(homeSCREEN);
+    Navigator.of(context).pushReplacementNamed(homeSCREENx);
   }
 
   @override

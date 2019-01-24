@@ -27,6 +27,7 @@ dependencies:
   sqflite: any
   path_provider: ^0.4.1
   dio: any
+  archive: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -47,15 +48,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/db/Zikr.db
     - assets/logo_Quran.png
     - assets/logo_Azkar.png
     - assets/logo_hadith.png
     - assets/logo_fatwa.png
     - assets/logo_futrue.png
     - assets/logo_important.png
-    - assets/db/Quran.db
-    - assets/db/Sunna.db
-    - assets/db/Zikr.db
     - assets/images/logo.png
     - assets/images/setting.png
     - assets/images/powered_by.png
@@ -63,7 +62,9 @@ flutter:
     - assets/images/quran2.png
     - assets/images/hadeth.png
     - assets/images/tafseer.jpg
-        
+    # - assets/db/Quran.db
+    # - assets/db/Sunna.db
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
