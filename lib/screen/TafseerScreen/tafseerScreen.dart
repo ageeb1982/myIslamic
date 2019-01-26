@@ -35,6 +35,7 @@ class TafseerScreenState extends State<TafseerScreen> {
 
   @override
   void initState() {
+    super.initState();
     quranDBIsExist().then((result) {
       setState(() {
         _dbIsExist = result;
