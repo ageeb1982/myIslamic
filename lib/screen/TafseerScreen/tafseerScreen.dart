@@ -103,10 +103,7 @@ class GetTafseerState extends State<GetTafseer> {
   final TextEditingController txtsrch = TextEditingController();
   SrchType _schType = SrchType.sura;
 
-  get onChng
-  {
-    txtsrch.
-  }
+  
   //final Control
   @override
   Widget build(BuildContext context) {
