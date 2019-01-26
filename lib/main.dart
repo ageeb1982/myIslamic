@@ -8,6 +8,8 @@ import 'package:myislamic/screen/TafseerScreen/tafseerScreen.dart';
 import 'package:myislamic/screen/ZikrScreen/ZikrScreen.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 void main() => runApp(MaterialApp(
+  title: appName,
+  
       home: IntroScreen(),
             debugShowCheckedModeBanner: false,
 

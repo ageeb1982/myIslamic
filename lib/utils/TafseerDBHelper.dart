@@ -27,18 +27,56 @@ intDB(String tName) async
 
 
 
-
-Future<List> getAllZikr({int catId=-1}) async
+ 
+Future<List> getAllData({String txt:"",SrchType srchType=SrchType.sura}) async
   {
     var dbClient = await  db;
-    String _catX="";
-    if(catId!=-1){_catX=" where Cat_id=$catId order  by sn,orderX   ASC ";}
-    var sql = """select * from Zikr   $tName   $_catX""";
-    List result = await dbClient.rawQuery(sql);
+    var sql="";
+    var ordX="";
+    var qury="";
+   // srchType=SrchType.sura;
+   //if(txt=="")
+    if(srchType==SrchType.aya)
+    {
+sql = "select * from  Qfull";
+ordX="order  by sura,ayah   ASC";
+if(txt!=""){
+  sql="$sql Where txtSrch Like '%$txt%' OR  tafseer Like '%$txt%'";
+  
+}
+
+    }
+    else if(srchType==SrchType.sura)
+    {
+sql = "select sura,sura_Name as suraName from  SuraName";
+
+ordX="order  by sura   ASC";
+if(txt!=""){
+  sql="$sql Where sura_Name Like '%$txt%'";
+}
+    }
+    
+qury="$sql $ordX";     
+
+    
+    List result = await dbClient.rawQuery(qury);
     var ee= result.toList();
     return ee;
   }
 
+// Future<List> getAllAya({String ayaTxt:""}) async
+//   {
+//     var dbClient = await  db;
+//     String _catX="";
+    
+    
+//     var sql = "select * from  SuraName order by sura";
+
+//     if(ayaTxt!=""){_catX=" where Cat_id=$catId order  by sn,orderX   ASC ";}
+//     List result = await dbClient.rawQuery(sql);
+//     var ee= result.toList();
+//     return ee;
+//   }
 
 
 

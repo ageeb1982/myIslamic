@@ -39,6 +39,7 @@ final key = new GlobalKey<DownloadFileX>();
 
 
 
+
 class DownloadFileX extends State<DownloadFileOrg> {
  String url = "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
   bool downloading = false;
@@ -91,33 +92,33 @@ DownloadFileX({this.url,this.fileName,this.displayName,this.downloading});
   @override
   Widget build(BuildContext context) {
     return 
-     Center(
-        child: downloading
-            ? Container(
-                height: 120.0,
-                width: 200.0,
-                child: Card(
-                  color: Colors.black,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      
-                      CircularProgressIndicator(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Text(
-                        "$progressString",
-                        style: TextStyle(
-                          color: Colors.white,
+  Center(
+          child: downloading
+              ? Container(
+                  height: 120.0,
+                  width: 200.0,
+                  child: Card(
+                    color: Colors.black,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        
+                        CircularProgressIndicator(),
+                        SizedBox(
+                          height: 20.0,
                         ),
-                      )
-                    ],
+                        Text(
+                          "$progressString",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
-            :finsh? Text(progressString): Text("لا يوجد بيانات"),
-      );
+                )
+              :finsh? Text(progressString): Text("لا يوجد بيانات"),
+        )     ;
    
   }
 }

@@ -14,6 +14,10 @@ import 'dart:io';
 //import 'package:sqflite/sqflite.dart';
 //import 'package:http/http.dart' as http;
 
+enum SrchType
+{
+aya,sura
+}
 
  Future<String> get localPath async{
    final pathz=await getApplicationDocumentsDirectory();
@@ -102,7 +106,7 @@ Future<String>  dbTafseerPath(String tName)  async   {
    //final dbDir=await getDatabasesPath();
 Directory docDir = await getApplicationDocumentsDirectory();
 
-   var dbPath=join(docDir.path,tName+".db");
+   var dbPath=join(docDir.path,tName);
    
 // ByteData data = await rootBundle.load(join("assets", "db/Zikr.db"));
 // List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);

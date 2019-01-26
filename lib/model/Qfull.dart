@@ -20,7 +20,8 @@ Qfull(this._ayah,
     this._tafseer,
     this._txt,
     this._txtSrch);
-Qfull.map(dynamic map){
+Qfull.map(dynamic map)
+{
 
   this._page=map['page'];
   this._ayah=map['ayah'];
@@ -60,7 +61,8 @@ map['page']=this._page;
 
 }
 
-Qfull.fromMap(Map<String,dynamic>map){
+Qfull.fromMap(Map<String,dynamic>map)
+{
   this._ayah=map['ayah'];
   this._page=map['page'];
     this._sura=map['sura'];
