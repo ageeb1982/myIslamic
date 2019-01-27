@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:myislamic/model/Qfull.dart';
-import 'package:myislamic/model/ZikrT.dart';
+import 'package:myislamic/utils/TafseerDBHelper.dart';
 
 // import 'package:myislamic/screen/ZikrScreen/ZikrHeaderBanner.dart';
-import 'package:myislamic/utils/ZikrDBHelper.dart';
+// import 'package:myislamic/utils/ZikrDBHelper.dart';
 import 'package:share/share.dart';
 //import 'package:share/share.dart';
 
@@ -22,7 +22,7 @@ class TafseerListDetails extends StatefulWidget {
 }
 
 class TafseerListDetailsState extends State<TafseerListDetails> {
-  var db = new ZikrDBHelper(); // CALLS FUTURE
+  var db = new TafseerDBHelper("Quran.db"); // CALLS FUTURE
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +31,16 @@ class TafseerListDetailsState extends State<TafseerListDetails> {
       resizeToAvoidBottomPadding: false,
 
        key: key,
-      appBar: AppBar( title:Text("بحث  ")),// Text(widget.item.txt)),
+      //appBar: AppBar( title:Text("بحث  ")),// Text(widget.item.txt)),
        body:         resultList(key),
           
-       bottomNavigationBar: 
+      // bottomNavigationBar: 
       //  Row(
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       // children: <Widget>[
         
          
-        CircleAvatar(radius: 70, child:  Image.asset("assets/images/logo_Quran.png", fit: BoxFit.cover,))
+        //CircleAvatar(radius: 70, child:  Image.asset("assets/images/logo_Quran.png", fit: BoxFit.cover,))
 
      // ],
     //)
@@ -58,12 +58,13 @@ class TafseerListDetailsState extends State<TafseerListDetails> {
 //if(widget.item.countX==0)
  // { 
     return FutureBuilder<List>(
-      future: getZikritemList(widget.item.ayah),
+      future: getQuranitemList(),
       // future: getZikritemList(widget.item.id),
       initialData: List(),
       builder: (context, snapshot) {
-        return listZikrData(context, snapshot,widget.item,key);
+        return listQuranData(context, snapshot,widget.item,key);
       },
+
 );
  // }
  // else
@@ -80,7 +81,7 @@ class TafseerListDetailsState extends State<TafseerListDetails> {
   }
 
 
-Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cItem,GlobalKey<ScaffoldState> key)
+Widget listQuranData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cItem,GlobalKey<ScaffoldState> key)
    {
       
       return snapshot.hasData
@@ -104,7 +105,7 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cIt
            itemBuilder: (_, int position) {
              String txt=snapshot.data[position].txt;
               final item = snapshot.data[position];
-              Color iconColor=snapshot.data[position].virtue==null?Colors.deepPurple[100]:Colors.red[300];
+              Color iconColor=snapshot.data[position].tafseer==null?Colors.deepPurple[100]:Colors.red[300];
             
               return
               
@@ -153,7 +154,7 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cIt
              Column(children: <Widget>[ IconButton(iconSize: 25,icon:Icon(FontAwesomeIcons.bookOpen, color: iconColor), onPressed: () {
   
   
-  if(item.virtue!=null)
+  if(item.tafseer!=null)
   {
   confirmDialog(context,item).then((_) {
       print("done");
@@ -175,7 +176,7 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cIt
              String src="";
              String virt="";
              if(item.source!=null){src="المصدر:"+item.source;}
-             if(item.virtue!=null){virt="المتن:"+item.virtue;}
+             if(item.tafseer!=null){virt="المتن:"+item.tafseer;}
               Clipboard.setData(new ClipboardData(text: "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم"));
               key.currentState.showSnackBar(
                     new SnackBar(content: new Text("تم نسخ"),duration:Duration(seconds: 1),));
@@ -193,7 +194,7 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cIt
              String src="";
              String virt="";
              if(item.source!=null){src="المصدر:"+item.source;}
-             if(item.virtue!=null){virt="المتن:"+item.virtue;}
+             if(item.tafseer!=null){virt="المتن:"+item.tafseer;}
              String zZ= "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم";
                final RenderBox box = context.findRenderObject();
               Share.share(zZ,
@@ -241,9 +242,9 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,Qfull cIt
         
    }
 
-Future<bool> confirmDialog(BuildContext context,ZikrT itemX) {
+Future<bool> confirmDialog(BuildContext context,Qfull itemX) {
  
- String itemY=itemX.virtue;
+ String itemY=itemX.suraName;
  
  
   return showDialog<bool>(
@@ -253,7 +254,7 @@ Future<bool> confirmDialog(BuildContext context,ZikrT itemX) {
       {
         return new AlertDialog(
           title: new Text("متن الحديث"),
-          content: new Text("$itemY\n\n${itemX.source}"),
+          content: new Text("$itemY\n\n${itemX.txt}"),
           actions: <Widget>[
             new FlatButton(
               child: const Text('رجوع'),
@@ -302,12 +303,12 @@ Future<bool> confirmDialog(BuildContext context,ZikrT itemX) {
                   ),
                   onTap: ()   {
                     
- Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TafseerListDetails(item),
-          ),
-        );
+//  Navigator.push(
+//           context,
+//           MaterialPageRoute(
+//             builder: (context) => TafseerListDetails(item),
+//           ),
+//         );
 
 
                   },
@@ -324,27 +325,18 @@ Future<bool> confirmDialog(BuildContext context,ZikrT itemX) {
   
   }
 
-  Future<List<ZikrT>> getZikritemList([int catIdZ]) async {
-    List<ZikrT> zcatsX = new List<ZikrT>();
-    var myzikrCat = await db.getAllZikr(catId: catIdZ);
-    for (int i = 0; i < myzikrCat.length; i++) {
-      ZikrT zCat = ZikrT.map(myzikrCat[i]);
-      zcatsX.add(zCat);
-    }
-    return zcatsX.toList();
-  }
-
-
-
-Future<List<Qfull>> getZCatitemList([int catId]) async {
+  Future<List<Qfull>> getQuranitemList([int ayah]) async {
     List<Qfull> zcatsX = new List<Qfull>();
-    var myzikrCat = await db.getAllZikrCat(catId: catId);
+    var myzikrCat = await db.getAllDataByAyah(ayah: ayah);
     for (int i = 0; i < myzikrCat.length; i++) {
       Qfull zCat = Qfull.map(myzikrCat[i]);
       zcatsX.add(zCat);
     }
     return zcatsX.toList();
   }
+
+
+
 
 
 

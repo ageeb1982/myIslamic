@@ -26,6 +26,29 @@ intDB(String tName) async
 }
 
 
+Future<List> getAllDataByAyah({int ayah=0}) async
+  {
+    var dbClient = await  db;
+    var sql="";
+    var ordX="";
+    var qury="";
+   // srchType=SrchType.sura;
+   //if(txt=="")
+    
+sql = "select * from  Qfull";
+ordX="order  by sura,ayah   ASC";
+if(ayah!=null)
+{
+if(ayah!=0 ){sql="$sql Where ayah Like '%$ayah%'";}
+  }
+
+qury="$sql $ordX";     
+
+    
+    List result = await dbClient.rawQuery(qury);
+    var ee= result.toList();
+    return ee;
+  }
 
  
 Future<List> getAllData({String txt:"",SrchType srchType=SrchType.sura}) async
@@ -41,7 +64,7 @@ Future<List> getAllData({String txt:"",SrchType srchType=SrchType.sura}) async
 sql = "select * from  Qfull";
 ordX="order  by sura,ayah   ASC";
 if(txt!=""){
-  sql="$sql Where txtSrch Like '%$txt%' OR  tafseer Like '%$txt%'";
+  sql="$sql Where txtSrch Like '%$txt%'";
   
 }
 

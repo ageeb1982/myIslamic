@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myislamic/constant/reg.dart';
 import 'package:myislamic/model/Qfull.dart';
 import 'package:myislamic/screen/OtherScreen/MyAppBar.dart';
+import 'package:myislamic/screen/TafseerScreen/tafseerListDetails.dart';
 // import 'package:myislamic/screen/TafseerScreen/tafseerListDetails.dart';
 import 'package:myislamic/screen/Tools/DownloadFile.dart';
 import 'package:myislamic/utils/TafseerDBHelper.dart';
@@ -104,30 +105,53 @@ class GetTafseerState extends State<GetTafseer> {
   final TextEditingController txtsrch = TextEditingController();
   SrchType _schType = SrchType.sura;
 
-  
-  //final Control
-  @override
+  @override 
+  void initState() {
+  txtsrch.addListener(() {
+  if(txtsrch.text=="")
+  {
+  this.setState(() 
+  {
+    keyScf.currentState.showSnackBar(
+                new SnackBar(content: 
+                            new Text("بدء البحث ....." + txtsrch.text),
+                            duration: Duration(seconds: 2)));
+                            });
+  }
+  }
+ );
+    super.initState();
+  }
+
+   @override
   Widget build(BuildContext context) {
+  
     //return Center(child: Text('التفسير موجود'),)
     return Scaffold(
         key: keyScf,
         appBar: AppBar(
             backgroundColor: Color(0xFF3C615A),
-            leading: IconButton(
+              //leading: Container(),
+             leading: IconButton(
               icon: Icon(Icons.search),
               color: Colors.white,
               highlightColor: Colors.green,
               onPressed: () {
-                keyScf.currentState.showSnackBar(new SnackBar(
-                    content: new Text("بدء البحث ....." + txtsrch.text),
-                    duration: Duration(seconds: 2)));
-                debugPrint(txtsrch.toString());
-              },
-            ), // icon is 48px widget.
+this.setState(() 
+  {
+    keyScf.currentState.showSnackBar(
+                new SnackBar(content: 
+                            new Text("بدء البحث ....." + txtsrch.text),
+                            duration: Duration(seconds: 2)));
+                            }
+             );})
+
+             , // icon is 48px widget.
 
             title:  TextField(
                   controller: txtsrch,
-                  onChanged: (text) {
+                  onChanged: (text)
+                   {
     print("First text field: $text");
     if(txtsrch.text=="")
     {
@@ -140,13 +164,13 @@ _schType=SrchType.aya;
   },
                   textAlign: TextAlign.right,
                   //key: txtsrch,
-                  // style: TextStyle(fontSize: 11.0),
+                   style: TextStyle(color: Colors.yellow),
                   decoration: InputDecoration(
                       //contentPadding: new EdgeInsets.symmetric(vertical: 0.0),
                       border: InputBorder.none,
                       hintText: 'اكتب النص المراد البحث عنه',
-                      hintStyle: TextStyle(color:  Colors.greenAccent[500]),
-                      fillColor: Colors.green),
+                      hintStyle: TextStyle(color:  Colors.green),
+                      fillColor: Colors.white),
                 ),
               
 )
@@ -165,8 +189,10 @@ _schType=SrchType.aya;
         ));
   }
 var db = new TafseerDBHelper("Quran.db");
-Future<List<Qfull>> getAllaya([String txt,SrchType srcType]) async {
+Future<List<Qfull>> getAllaya([String txt,SrchType srcType]) async
+ {
     List<Qfull> zcatsX = new List<Qfull>();
+    //txt="زيد";
     var myAyat = await db.getAllData(txt: txt,srchType:srcType);
     for (int i = 0; i < myAyat.length; i++) {
      
@@ -201,47 +227,52 @@ Future<List<Qfull>> getAllaya([String txt,SrchType srcType]) async {
               Widget result=new Center(child: Text("No Data"),);
               if(cItem==SrchType.aya)
               {
+                var sS=item.txt;
 result=   new Directionality(
     textDirection:  TextDirection.rtl,
-            child:   Card(
-                 color: Colors.blue[50],
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                child: 
-                ListTile(
-                  leading: Icon(FontAwesomeIcons.book,color: Colors.blue,),
-                  title: 
-                  Row(
-                    children: <Widget>[
-                      Text("سورة: ${item.suraName} ---  الآية رقم (${item.ayah.toString()})" ,
-                      textDirection: TextDirection.rtl,
+            child: 
+              InkWell(
+                onTap: (){
+                  Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TafseerListDetails(item),
+          ),
+       );
+                },
+                              child: Card(
+
+                   color: Colors.blue[50],
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                  child: 
+                  ListTile(
+                    // leading: Icon(FontAwesomeIcons.book,color: Colors.blue,),
+                    title: 
+                    Row(
+                      children: <Widget>[
+                        Text("${item.suraName} (${item.ayah.toString()})/" ,
+                        textDirection: TextDirection.rtl,
+ style: TextStyle(
+     fontStyle: FontStyle.italic,
+     fontSize: 18.0,
+     fontWeight: FontWeight.bold,
+     color: Colors.red),
+                        ),
+                        Expanded(
+                                                child: Text("{ ${sS.substring(0,sS.length>=50?50:sS.length)+"...." } }",
+                           textDirection: TextDirection.rtl,
  style: TextStyle(
      fontStyle: FontStyle.italic,
      fontSize: 18.0,
      fontWeight: FontWeight.bold,
      color: Color(0xFF061375)),
-                      ),
-                      Text("قال الله تعالى} ${item.txt} }",
-                       textDirection: TextDirection.rtl,
- style: TextStyle(
-     fontStyle: FontStyle.italic,
-     fontSize: 18.0,
-     fontWeight: FontWeight.bold,
-     color: Color(0xFF061375)),
-                      ),
-                    ],
+                          ),
+                        ),
+                      ],
+                    ),
+                   
                   ),
-                  onTap: ()   {
-                    
-//  Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => TafseerListDetails(item),
-//           ),
-      //  );
-
-
-                  },
                 ),
               )
                 );
@@ -259,7 +290,7 @@ result=   new Directionality(
                 ListTile(
                   leading: Icon(FontAwesomeIcons.book,color: Colors.blue,),
                   title: 
-                   Text("رقم: ${item.sura.toString()} --- )سورة: ${item.suraName})" ,
+                   Text(" ${item.sura.toString()} /  سورة: ${item.suraName} " ,
                         textDirection: TextDirection.rtl,
  style: TextStyle(
      fontStyle: FontStyle.italic,
