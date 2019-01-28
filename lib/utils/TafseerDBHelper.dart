@@ -34,8 +34,12 @@ Future<List> getAllDataByAyah({int ayah=0}) async
     var qury="";
    // srchType=SrchType.sura;
    //if(txt=="")
-    
-sql = "select * from  Qfull";
+    //ToDo
+    /**
+     * حذف where sura =1 
+     * بعد الإنتهاء من الخطأ
+     */
+sql = "select * from  Qfull where sura=1 ";
 ordX="order  by sura,ayah   ASC";
 if(ayah!=null)
 {

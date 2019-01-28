@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myislamic/constant/reg.dart';
 import 'package:myislamic/model/Qfull.dart';
 import 'package:myislamic/screen/OtherScreen/MyAppBar.dart';
-import 'package:myislamic/screen/TafseerScreen/tafseerListDetails.dart';
+// import 'package:myislamic/screen/TafseerScreen/tafseerListDetails.dart';
+import 'package:myislamic/screen/TafseerScreen/tafseerPage.dart';
 // import 'package:myislamic/screen/TafseerScreen/tafseerListDetails.dart';
 import 'package:myislamic/screen/Tools/DownloadFile.dart';
 import 'package:myislamic/utils/TafseerDBHelper.dart';
@@ -35,7 +36,8 @@ class TafseerScreenState extends State<TafseerScreen> {
   bool showProgress = false;
 
   @override
-  void initState() {
+  void initState()
+   {
     super.initState();
     quranDBIsExist().then((result) {
       setState(() {
@@ -105,23 +107,23 @@ class GetTafseerState extends State<GetTafseer> {
   final TextEditingController txtsrch = TextEditingController();
   SrchType _schType = SrchType.sura;
 
-  @override 
-  void initState() {
-  txtsrch.addListener(() {
-  if(txtsrch.text=="")
-  {
-  this.setState(() 
-  {
-    keyScf.currentState.showSnackBar(
-                new SnackBar(content: 
-                            new Text("بدء البحث ....." + txtsrch.text),
-                            duration: Duration(seconds: 2)));
-                            });
-  }
-  }
- );
-    super.initState();
-  }
+  // @override 
+  // void initState() {
+//   txtsrch.addListener(() {
+//   if(txtsrch.text=="")
+//   {
+//   this.setState(() 
+//   {
+//     keyScf.currentState.showSnackBar(
+//                 new SnackBar(content: 
+//                             new Text("بدء البحث ....." + txtsrch.text),
+//                             duration: Duration(seconds: 2)));
+//                             });
+//   }
+//   }
+//  );
+  //  super.initState();
+  // }
 
    @override
   Widget build(BuildContext context) {
@@ -233,12 +235,20 @@ result=   new Directionality(
             child: 
               InkWell(
                 onTap: (){
-                  Navigator.push(
+ Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TafseerListDetails(item),
+            builder: (context) => TafseerPage(item),
           ),
        );
+
+
+      //             Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => (item),
+      //     ),
+      //  );
                 },
                               child: Card(
 
@@ -302,12 +312,12 @@ result=   new Directionality(
                       ),
                   onTap: ()   {
                     
-//  Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => TafseerListDetails(item),
-//           ),
-      //  );
+ Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TafseerPage(item),
+          ),
+       );
 
 
                   },
