@@ -24,5 +24,8 @@
    -  حصني
    https://play.google.com/store/apps/details?id=com.hisni&hl=ar
    
+   - جامع صحيح الأذكار
+   https://play.google.com/store/apps/details?id=com.abdullah.SwahihAlAdhkaar1
+   
    - قاعدة بيانات الشيخ الألباني من موقعه
   https://www.alalbani.info/alalbany_dbs_1.php
