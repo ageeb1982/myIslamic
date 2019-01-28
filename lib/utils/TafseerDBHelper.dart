@@ -35,7 +35,7 @@ Future<List> getAllDataByAyah({int ayah=0}) async
    // srchType=SrchType.sura;
    //if(txt=="")
     //ToDo
-    /**
+    /*
      * حذف where sura =1 
      * بعد الإنتهاء من الخطأ
      */

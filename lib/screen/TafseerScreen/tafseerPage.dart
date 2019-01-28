@@ -320,7 +320,9 @@ Future<bool> confirmDialog(BuildContext context,Qfull itemX) {
     List<Qfull> zcatsX = new List<Qfull>();
     var myzikrCat = await db.getAllDataByAyah(ayah: 0);
     for (int i = 0; i < myzikrCat.length; i++) {
+
       Qfull zCat = Qfull.map(myzikrCat[i]);
+      debugPrint("${zCat.suraName} الآية: ${zCat.ayah}");
       zcatsX.add(zCat);
     }
     return zcatsX.toList();
