@@ -19,6 +19,10 @@
    # استفدت من عدة تطبيقات
    منها :
    - قران اندرويد
-   - حصني
+   https://play.google.com/store/apps/details?id=com.quran.labs.androidquran
+   
+   -  حصني
+   https://play.google.com/store/apps/details?id=com.hisni&hl=ar
+   
    - قاعدة بيانات الشيخ الألباني من موقعه
-  
+  https://www.alalbani.info/alalbany_dbs_1.php
