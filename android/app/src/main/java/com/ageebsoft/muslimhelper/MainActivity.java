@@ -1,4 +1,4 @@
-package com.ageebsoft.myislamic;
+package com.ageebsoft.muslimhelper;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

@@ -75,7 +75,7 @@ _goToElement();
          
       
         PageView.builder(
-          controller: _controller,
+         controller: _controller,
          physics: BouncingScrollPhysics(),
           
            scrollDirection: Axis.horizontal,
@@ -116,7 +116,7 @@ _goToElement();
                Text(txt,textAlign: TextAlign.right,textDirection: TextDirection.rtl, style: TextStyle(fontStyle: FontStyle.italic, fontSize: 18.0, fontWeight: FontWeight.bold,     color: Color(0xFF061375)),   ),
             
               SizedBox(height: 10,),
-              Text(item.source,textAlign: TextAlign.center,)
+              Text(item.tafseer,textAlign: TextAlign.center,)
  ],
 )
 
@@ -149,7 +149,7 @@ _goToElement();
              String zikr=item.txt;
              String src="";
              String virt="";
-             if(item.source!=null){src="المصدر:"+item.source;}
+             src="المصدر:تفسير السعدي";
              if(item.tafseer!=null){virt="المتن:"+item.tafseer;}
               Clipboard.setData(new ClipboardData(text: "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم"));
               key.currentState.showSnackBar(
@@ -167,7 +167,7 @@ _goToElement();
              String zikr=item.txt;
              String src="";
              String virt="";
-             if(item.source!=null){src="المصدر:"+item.source;}
+             src="المصدر:السعدي";
              if(item.tafseer!=null){virt="المتن:"+item.tafseer;}
              String zZ= "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم";
                final RenderBox box = context.findRenderObject();

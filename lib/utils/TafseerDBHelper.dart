@@ -11,6 +11,7 @@ Future<Database> get db async
 {
   if(_db==null){
   _db=await intDB(tName);
+  
   return _db;
   }
   else
@@ -39,7 +40,8 @@ Future<List> getAllDataByAyah({int ayah=0}) async
      * حذف where sura =1 
      * بعد الإنتهاء من الخطأ
      */
-sql = "select * from  Qfull where sura=1 ";
+//sql = "select * from  Qfull where sura=1  ";
+sql = "select * from  quran where sura=1  ";
 ordX="order  by sura,ayah   ASC";
 if(ayah!=null)
 {
