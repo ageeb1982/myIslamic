@@ -1,5 +1,6 @@
  class Qfull
 {
+  int _sn;
     int _ayah;
     int _page;
     int _sura;
@@ -13,7 +14,8 @@
 
     
 
-Qfull(this._ayah,
+Qfull(this._sn,
+  this._ayah,
     this._page,
     this._sura,
     this._suraName,
@@ -23,6 +25,7 @@ Qfull(this._ayah,
 Qfull.map(dynamic map)
 {
 
+  this._sn=map['sn'];
   this._page=map['page'];
   this._ayah=map['ayah'];
     this._sura=map['sura'];
@@ -34,6 +37,7 @@ Qfull.map(dynamic map)
 }
 
 
+    int get sn=>this._sn;
     int get page=>this._page;
     int get ayah=>this._ayah;
 
@@ -46,6 +50,7 @@ Map<String,dynamic> toMap(){
   var map=new Map<String,dynamic>();
 
   
+map['sn']=this._sn;
 map['ayah']=this._ayah;
 map['page']=this._page;
     map['sura']=this._sura;
@@ -63,6 +68,7 @@ map['page']=this._page;
 
 Qfull.fromMap(Map<String,dynamic>map)
 {
+  this._sn=map['sn'];
   this._ayah=map['ayah'];
   this._page=map['page'];
     this._sura=map['sura'];

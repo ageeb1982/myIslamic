@@ -62,7 +62,12 @@ class TafseerListDetailsState extends State<TafseerListDetails> {
       // future: getZikritemList(widget.item.id),
       initialData: List(),
       builder: (context, snapshot) {
+             if (snapshot.connectionState != ConnectionState.done) {
+               return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,));
+              } else {
+            
         return listQuranData(context, snapshot,widget.item,key);
+              }
       },
 
 );

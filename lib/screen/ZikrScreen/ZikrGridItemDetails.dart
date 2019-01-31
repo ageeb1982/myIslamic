@@ -71,7 +71,12 @@ if(widget.item.countX==0)
       future: getZikritemList(widget.item.id),
       initialData: List(),
       builder: (context, snapshot) {
+             if (snapshot.connectionState != ConnectionState.done) {
+               return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,));
+              } else {
+            
         return listZikrData(context, snapshot,widget.item,key);
+              }
       },
 );
   }
@@ -82,7 +87,12 @@ if(widget.item.countX==0)
       future: getZCatitemList(widget.item.id),
       initialData: List(),
       builder: (context, snapshot) {
+             if (snapshot.connectionState != ConnectionState.done) {
+               return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,));
+              } else {
+            
         return listViewData(context, snapshot,widget.item);
+              }
       },
 );
   }

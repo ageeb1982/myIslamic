@@ -76,7 +76,7 @@ class TafseerScreenState extends State<TafseerScreen> {
                   child: DownloadFileOrg(
                       url:
                           "https://ia601502.us.archive.org/20/items/quranDB/Quran.zip",
-                      fileName: "quran.zip",
+                       fileName: "quran.zip",
                       displayName: "القران الكريم",
                       run: showProgress),
                   visible: showProgress,
@@ -185,7 +185,12 @@ _schType=SrchType.aya;
             getAllaya(txtsrch.text,_schType),
             initialData: List(),
             builder: (context, snapshot) {
+                   if (snapshot.connectionState != ConnectionState.done) {
+               return Center(child: CircularProgressIndicator(backgroundColor: Colors.blue,));
+              } else {
+            
               return listViewData(context, snapshot, _schType);
+              }
             },
           ),
         ));

@@ -6,6 +6,16 @@ import 'dart:async';
 class TafseerDBHelper{
 static Database _db;
  final String tName;
+ final sqlQuran = """SELECT 
+quran.SN as sn,
+quran.page,
+quran.sura,
+quran.ayah,
+SuraName.sura_Name as suraName,
+quran.txt_srch as txtSrch,
+quran.txt,
+quran.tafseer
+FROM quran INNER JOIN SuraName ON quran.sura = SuraName.sura  """;
   TafseerDBHelper(this.tName);
 Future<Database> get db async
 {
@@ -33,6 +43,7 @@ Future<List> getAllDataByAyah({int ayah=0}) async
     var sql="";
     var ordX="";
     var qury="";
+
    // srchType=SrchType.sura;
    //if(txt=="")
     //ToDo
@@ -41,17 +52,23 @@ Future<List> getAllDataByAyah({int ayah=0}) async
      * بعد الإنتهاء من الخطأ
      */
 //sql = "select * from  Qfull where sura=1  ";
-sql = "select * from  quran where sura=1  ";
-ordX="order  by sura,ayah   ASC";
+sql=sqlQuran;
+// ordX="order  by sura,ayah   ASC";
 if(ayah!=null)
 {
-if(ayah!=0 ){sql="$sql Where ayah Like '%$ayah%'";}
+if(ayah!=0 )
+{sql="$sql Where quran.ayah Like '%$ayah%'";}
   }
 
 qury="$sql $ordX";     
+// qury="$sql";     
 
     
+    // List result = await dbClient.rawQuery(qury);
     List result = await dbClient.rawQuery(qury);
+   
+   
+   
     var ee= result.toList();
     return ee;
   }
@@ -67,21 +84,26 @@ Future<List> getAllData({String txt:"",SrchType srchType=SrchType.sura}) async
    //if(txt=="")
     if(srchType==SrchType.aya)
     {
-sql = "select * from  Qfull";
-ordX="order  by sura,ayah   ASC";
+// sql = "select sn,page,sura,ayah,suraName,txtSrch,txt,tafseer from  Qfull ";
+sql = sqlQuran;
+ordX="order  by quran.sura,quran.ayah   ASC";
+ordX="order  by quran.sura,quran.ayah   ASC";
+// quran.sura,
+// quran.ayah,
 if(txt!=""){
-  sql="$sql Where txtSrch Like '%$txt%'";
+  sql="$sql Where quran.txt_srch Like '%$txt%'";
   
 }
 
     }
     else if(srchType==SrchType.sura)
     {
-sql = "select sura,sura_Name as suraName from  SuraName";
+// sql = "select sura,sura_Name as suraName from  SuraName";
+sql = sqlQuran + " where quran.ayah=1 ";
 
-ordX="order  by sura   ASC";
+ordX="order  by quran.sura   ASC";
 if(txt!=""){
-  sql="$sql Where sura_Name Like '%$txt%'";
+  sql="$sql Where SuraName.sura_Name Like '%$txt%'";
 }
     }
     
