@@ -28,7 +28,7 @@ class TafseerPageState extends State<TafseerPage> with AfterLayoutMixin<TafseerP
   final Qfull ayahX;
   int selectItemPos = 0;
   TafseerPageState(this.ayahX){
-selectItemPos=ayahX.sn-1;
+selectItemPos=ayahX.ayah-1;
 
   }
   PageController _controller = new PageController();
@@ -39,9 +39,13 @@ selectItemPos=ayahX.sn-1;
   void _goToElement(int pos) 
   {
 
-    _controller.animateTo((100.0 * (pos-1)), // 100 is the height of container and index of 6th element is 5
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut);
+    // _controller.animateTo((100.0 * (pos-1)), // 100 is the height of container and index of 6th element is 5
+    //     duration: const Duration(milliseconds: 300),
+    //     curve: Curves.easeOut);
+_controller.jumpToPage(pos);
+
+
+
   }
   @override
   void initState() {
@@ -60,7 +64,7 @@ selectItemPos=ayahX.sn-1;
         key: key,
         appBar: AppBar( title: Text(tafseerTITLE)),
         body: FutureBuilder<List>(
-          future: getQuranitemList(),
+          future: getQuranitemList(suraX:ayahX.sura),
 
           // future: getZikritemList(widget.item.id),
           initialData: List(),
@@ -111,8 +115,12 @@ selectItemPos=ayahX.sn-1;
                                                         .spaceBetween,
                                                 children: <Widget>[
                                                   Text(
+                                                    item.ayah.toString() + "/"+
+                                                    " سورة "+
                                                     item.suraName +
-                                                            "=> صفحة " +
+                                                    " => آية رقم "+
+                                                    item.ayah.toString() +
+                                                            " => صفحة " +
                                                             item.page.toString()
                                                         //+" ( "+  (snapshot.data.length).toString() +" / " + (position+1).toString() +" )"
                                                         ,
@@ -165,21 +173,22 @@ selectItemPos=ayahX.sn-1;
                                                           FontAwesomeIcons.copy,
                                                           color: Colors.blue),
                                                       onPressed: () {
-                                                        String cat = item.txt;
-                                                        String zikr = item.txt;
+                                                        //String cat = item.txt;
+                                                        String ayahX = item.txt;
                                                         String src = "";
                                                         String virt = "";
                                                         src =
-                                                            "المصدر:تفسير السعدي";
+                                                            "*المصدر: *تفسير السعدي";
                                                         if (item.tafseer !=
                                                             null) {
-                                                          virt = "المتن:" +
+                                                          virt = "تفسير الآية:\n" +
                                                               item.tafseer;
                                                         }
+                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
                                                         Clipboard.setData(
                                                             new ClipboardData(
                                                                 text:
-                                                                    "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم"));
+                                                                    fullTafseer));
                                                         key.currentState
                                                             .showSnackBar(
                                                                 new SnackBar(
@@ -190,7 +199,7 @@ selectItemPos=ayahX.sn-1;
                                                         ));
                                                       },
                                                     ),
-                                                    Text("نسخ المتن")
+                                                    Text("نسخ التفسير")
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -205,18 +214,19 @@ selectItemPos=ayahX.sn-1;
                                                               .shareAlt,
                                                           color: Colors.purple),
                                                       onPressed: () {
-                                                        String cat = item.txt;
-                                                        String zikr = item.txt;
+                                                       String ayahX = item.txt;
                                                         String src = "";
                                                         String virt = "";
-                                                        src = "المصدر:السعدي";
+                                                        src =
+                                                            "*المصدر: *تفسير السعدي";
                                                         if (item.tafseer !=
                                                             null) {
-                                                          virt = "المتن:" +
+                                                          virt = "تفسير الآية:\n" +
                                                               item.tafseer;
                                                         }
+                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
                                                         String zZ =
-                                                            "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم";
+                                                           fullTafseer;
                                                         final RenderBox box =
                                                             context
                                                                 .findRenderObject();
@@ -228,7 +238,7 @@ selectItemPos=ayahX.sn-1;
                                                                     box.size);
                                                       },
                                                     ),
-                                                    Text("مشاركة المتن")
+                                                    Text("مشاركة التفسير")
                                                   ],
                                                 ),
                                               ],
@@ -251,27 +261,27 @@ selectItemPos=ayahX.sn-1;
 
   }
 
-  Future<bool> confirmDialog(BuildContext context, Qfull itemX) {
-    String itemY = itemX.suraName;
+  // Future<bool> confirmDialog(BuildContext context, Qfull itemX) {
+  //   String itemY = itemX.suraName;
 
-    return showDialog<bool>(
-        context: context,
-        barrierDismissible: true, // user must tap button!
-        builder: (BuildContext context) {
-          return new AlertDialog(
-            title: new Text("متن "),
-            content: new Text("$itemY\n\n${itemX.txt}"),
-            actions: <Widget>[
-              new FlatButton(
-                child: const Text('رجوع'),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-              ),
-            ],
-          );
-        });
-  }
+  //   return showDialog<bool>(
+  //       context: context,
+  //       barrierDismissible: true, // user must tap button!
+  //       builder: (BuildContext context) {
+  //         return new AlertDialog(
+  //           title: new Text("متن "),
+  //           content: new Text("$itemY\n\n${itemX.txt}"),
+  //           actions: <Widget>[
+  //             new FlatButton(
+  //               child: const Text('رجوع'),
+  //               onPressed: () {
+  //                 Navigator.of(context).pop(true);
+  //               },
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
   Widget listViewData(
       BuildContext context, AsyncSnapshot<List> snapshot, Qfull cItem) {
@@ -319,9 +329,10 @@ selectItemPos=ayahX.sn-1;
           );
   }
 
-  Future<List<Qfull>> getQuranitemList() async {
+  Future<List<Qfull>> getQuranitemList({int suraX}) async 
+  {
     List<Qfull> zcatsX = new List<Qfull>();
-    var myzikrCat = await db.getAllDataByAyah(ayah: 0);
+    var myzikrCat = await db.getAllDataBySura(sura: suraX);
     for (int i = 0; i < myzikrCat.length; i++) {
       Qfull zCat = Qfull.map(myzikrCat[i]);
       debugPrint("${zCat.suraName} الآية: ${zCat.ayah}");

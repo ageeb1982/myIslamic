@@ -73,7 +73,53 @@ qury="$sql $ordX";
     return ee;
   }
 
+
+
+
+Future<List> getAllDataBySura({int sura=1}) async
+  {
+    var dbClient = await  db;
+    var sql="";
+    var ordX="";
+    var qury="";
+
+   // srchType=SrchType.sura;
+   //if(txt=="")
+    //ToDo
+    /*
+     * حذف where sura =1 
+     * بعد الإنتهاء من الخطأ
+     */
+//sql = "select * from  Qfull where sura=1  ";
+
+if(sura==null|| sura==0){sura=1;}
+
+
+
+sql=sqlQuran;
+ ordX="order  by quran.sura,quran.ayah   ASC";
+
  
+sql="$sql Where quran.sura = $sura ";
+  
+
+qury="$sql $ordX";     
+// qury="$sql";     
+
+    
+    // List result = await dbClient.rawQuery(qury);
+    List result = await dbClient.rawQuery(qury);
+   
+   
+   
+    var ee= result.toList();
+    return ee;
+  }
+
+
+
+
+
 Future<List> getAllData({String txt:"",SrchType srchType=SrchType.sura}) async
   {
     var dbClient = await  db;

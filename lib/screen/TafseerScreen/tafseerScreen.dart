@@ -39,8 +39,10 @@ class TafseerScreenState extends State<TafseerScreen> {
   void initState()
    {
     super.initState();
+    debugPrint("tranasfeerScreenState____intistateOverRide");
     quranDBIsExist().then((result) {
       setState(() {
+         debugPrint("tranasfeerScreenState____intistateOverRide____________quranIsExist");
         _dbIsExist = result;
       });
     });
@@ -59,6 +61,7 @@ class TafseerScreenState extends State<TafseerScreen> {
           InkWell(
             onTap: () {
               setState(() {
+                 debugPrint("tranasfeerScreenState____ClickDOwnloadQuran");
                 showProgress = true;
               });
             },
@@ -141,6 +144,7 @@ class GetTafseerState extends State<GetTafseer> {
               onPressed: () {
 this.setState(() 
   {
+     debugPrint("tranasfeerScreenState____ClickSerch");
     keyScf.currentState.showSnackBar(
                 new SnackBar(content: 
                             new Text("بدء البحث ....." + txtsrch.text),
