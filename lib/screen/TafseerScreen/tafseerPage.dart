@@ -115,7 +115,7 @@ _controller.jumpToPage(pos);
                                                         .spaceBetween,
                                                 children: <Widget>[
                                                   Text(
-                                                    item.ayah.toString() + "/"+
+                                                    item.sura.toString() + "/"+
                                                     " سورة "+
                                                     item.suraName +
                                                     " => آية رقم "+
