@@ -42,8 +42,11 @@ android {
         applicationId "com.ageebsoft.muslimhelper"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        // التعديل في ارقام الإصدارات
+        versionCode 2  
+        versionName "2.0"  
+        // versionCode flutterVersionCode.toInteger()
+        // versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
