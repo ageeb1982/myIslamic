@@ -53,6 +53,20 @@ aya,sura
 /*
 *قاعدة بيانات الأذكار موجودة باستمرار داخل assets/db/Zikr.db
  */
+Future<String> get dbHadithPath async{
+   //final dbDir=await getDatabasesPath();
+Directory docDir = await getApplicationDocumentsDirectory();
+
+   var dbPath=join(docDir.path,"HadithX.db");
+   
+ByteData data = await rootBundle.load(join("assets", "db/Haidth.db"));
+List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+await new File(dbPath).writeAsBytes(bytes);
+
+return dbPath;
+
+ }
+
 Future<String> get dbZikrPath async{
    //final dbDir=await getDatabasesPath();
 Directory docDir = await getApplicationDocumentsDirectory();
@@ -66,7 +80,6 @@ await new File(dbPath).writeAsBytes(bytes);
 return dbPath;
 
  }
-
 
 
 
