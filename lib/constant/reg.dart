@@ -59,7 +59,7 @@ Directory docDir = await getApplicationDocumentsDirectory();
 
    var dbPath=join(docDir.path,"HadithX.db");
    
-ByteData data = await rootBundle.load(join("assets", "db/Haidth.db"));
+ByteData data = await rootBundle.load(join("assets", "db/Hadith.db"));
 List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
 await new File(dbPath).writeAsBytes(bytes);
 

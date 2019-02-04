@@ -5,18 +5,18 @@ import 'dart:async';
 
 class HadithDBHelper{
 static Database _db;
- final String tName;
+ //final String tName;
  final sqlHadith = """
  SELECT Hadith.id, Hadith.txt,Hadith.Type_Id typeId, HType.Type_Name as TypeName, Hadith.num,
   Hadith.page, Hadith.sub_id as subId, HSubject.HSubject,Hadith.ref_id as refId, HBook_Ref.ref, Hbook_Info.book_Name as bookName, 
   Hbook_Info.print_No as printNo, Hbook_Info.print_Date as printDate, Hbook_Info.shop 
 FROM Hadith INNER JOIN HSubject ON Hadith.sub_id = HSubject.id LEFT OUTER JOIN Hbook_Info ON Hadith.ref_id = Hbook_Info.id LEFT OUTER JOIN HType ON Hadith.Type_Id = HType.id LEFT OUTER JOIN HBook_Ref ON Hadith.ref_id = HBook_Ref.id  
 """;
-  HadithDBHelper(this.tName);
+  //HadithDBHelper();
 Future<Database> get db async
 {
   if(_db==null){
-  _db=await intDB(tName);
+  _db=await intDB();
   
   return _db;
   }
@@ -24,7 +24,7 @@ Future<Database> get db async
   return _db;
 }
 
-intDB(String tName) async
+intDB() async
 {
   
   String path=await dbHadithPath;
@@ -33,43 +33,7 @@ intDB(String tName) async
 }
 
 
-Future<List> getAllDataByAyah({int ayah=0}) async
-  {
-    var dbClient = await  db;
-    var sql="";
-    var ordX="";
-    var qury="";
-
-   // srchType=SrchType.sura;
-   //if(txt=="")
-    //ToDo
-    /*
-     * حذف where sura =1 
-     * بعد الإنتهاء من الخطأ
-     */
-//sql = "select * from  Qfull where sura=1  ";
-sql=sqlHadith;
-// ordX="order  by sura,ayah   ASC";
-if(ayah!=null)
-{
-if(ayah!=0 )
-{sql="$sql Where quran.ayah Like '%$ayah%'";}
-  }
-
-qury="$sql $ordX";     
-// qury="$sql";     
-
-    
-    // List result = await dbClient.rawQuery(qury);
-    List result = await dbClient.rawQuery(qury);
-   
-   
-   
-    var ee= result.toList();
-    return ee;
-  }
-
-
+ 
 
 
 Future<List> getAllBookIndex({int bookId=1}) async
@@ -113,8 +77,7 @@ if(bookId==null|| bookId==0){bookId=1;}
 
 sql=sqlHadith;
 
-//  ordX="order  by quran.sura,quran.ayah   ASC";
-
+ordX=" order by Hadith.ref_id,Hadith.page, Hadith.num   ASC";
   
 sql="$sql Where hadith.ref_id = $bookId ";
  
@@ -152,24 +115,16 @@ Future<List> getAllDataByBook({int bookId=1}) async
     var ordX="";
     var qury="";
 
-   // srchType=SrchType.sura;
-   //if(txt=="")
-    //ToDo
-    /*
-     * حذف where sura =1 
-     * بعد الإنتهاء من الخطأ
-     */
-//sql = "select * from  Qfull where sura=1  ";
+    
 
 if(bookId==null|| bookId==0){bookId=1;}
 
 
 
 sql=sqlHadith;
- ordX="order  by quran.sura,quran.ayah   ASC";
-
+ordX=" order by Hadith.ref_id,Hadith.page, Hadith.num   ASC";
  
-sql="$sql Where quran.sura = $bookId ";
+sql="$sql Where Hadith.ref_id = $bookId ";
   
 
 qury="$sql $ordX";     
@@ -198,7 +153,7 @@ Future<List> getAllData({String txt:""}) async
     var qury="";
   
 sql = sqlHadith;
-ordX="order  by quran.sura,quran.ayah   ASC";
+ordX=" order by Hadith.ref_id,Hadith.page, Hadith.num   ASC";
  
 if(txt!=""){
   sql="$sql Where Hadith.txt Like '%$txt%'";

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myislamic/screen/HadithScreen/hadithScreen.dart';
 import 'package:myislamic/screen/HomeScreen.dart';
 // import 'package:myislamic/screen/MyScoff.dart';
 import 'package:myislamic/screen/Intro.dart';
@@ -18,7 +19,7 @@ void main() => runApp(MaterialApp(
        homeSCREENx: (BuildContext context) => HomeScreen(),
         zikrSCREENx: (BuildContext context) => ZikrScreen(),
         tafseerSCREENx: (BuildContext context) => TafseerScreen(title: tafseerTITLE),
-        hadithSCREENx: (BuildContext context) => MyPage(title: hadithTITLE),
+        hadithSCREENx: (BuildContext context) => HadithScreen(title: hadithTITLE),
         fatwaSCREENx: (BuildContext context) =>  MyPage(title: fatwaTITLE),
         importantSCREEENx: (BuildContext context) => MyPage(title: importantTITLE),
         futureSCREENx: (BuildContext context) => MyPage(title: futureTITLE),
