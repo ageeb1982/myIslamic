@@ -120,6 +120,7 @@ class GetTafseerState extends State<GetTafseer> {
     List<Hfull> zcatsX = new List<Hfull>();
     //txt="زيد";
     var myAyat = await db.getAllData(txt: txt);
+    
     for (int i = 0; i < myAyat.length; i++) {
       Hfull hfull = Hfull.map(myAyat[i]);
       zcatsX.add(hfull);

@@ -59,7 +59,7 @@ class HadithPageState extends State<HadithPage>
         key: key,
         appBar: AppBar(title: Text(hadithTITLE)),
         body: FutureBuilder<List>(
-          future: getQuranitemList(bookIdX: hadithX.refId),
+          future: getQuranitemList(bookIdX: hadithX.bookId),
 
           // future: getZikritemList(widget.item.id),
           initialData: List(),

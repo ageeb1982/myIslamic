@@ -8,10 +8,17 @@ static Database _db;
  //final String tName;
  final sqlHadith = """
  SELECT Hadith.id, Hadith.txt,Hadith.Type_Id typeId, HType.Type_Name as TypeName, Hadith.num,
-  Hadith.page, Hadith.sub_id as subId, HSubject.HSubject,Hadith.ref_id as refId, HBook_Ref.ref, Hbook_Info.book_Name as bookName, 
-  Hbook_Info.print_No as printNo, Hbook_Info.print_Date as printDate, Hbook_Info.shop 
-FROM Hadith INNER JOIN HSubject ON Hadith.sub_id = HSubject.id LEFT OUTER JOIN Hbook_Info ON Hadith.ref_id = Hbook_Info.id LEFT OUTER JOIN HType ON Hadith.Type_Id = HType.id LEFT OUTER JOIN HBook_Ref ON Hadith.ref_id = HBook_Ref.id  
+  Hadith.page, Hadith.sub_id as subId, HSubject.HSubject,Hadith.ref_id as refId, HBook.ref, HBook.book_Name as bookName, 
+  HBook.print_No as printNo, HBook.print_Date as printDate, HBook.shop 
+FROM Hadith INNER JOIN
+ HSubject ON Hadith.sub_id = HSubject.id LEFT OUTER 
+  JOIN HType ON Hadith.Type_Id = HType.id LEFT OUTER
+   JOIN HBook ON Hadith.ref_id = HBook.id  
 """;
+  
+  
+  // JOIN Hbook_Info ON Hadith.ref_id = Hbook_Info.id LEFT OUTER
+
   //HadithDBHelper();
 Future<Database> get db async
 {
@@ -159,6 +166,12 @@ if(txt!=""){
   sql="$sql Where Hadith.txt Like '%$txt%'";
   
 }
+else
+{
+  sql="SELECT * FROM HBook";
+  ordX="";
+}
+
     
     
 qury="$sql $ordX";     
