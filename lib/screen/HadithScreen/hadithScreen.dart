@@ -20,19 +20,23 @@ import 'package:myislamic/utils/HadithDBHelper.dart';
 //  }
 
 class HadithScreen extends StatefulWidget {
-  HadithScreen({this.title});
+  HadithScreen({this.title,this.refId=0});
+  
   final String title;
+  int refId=0;
 
   @override
   HadithScreenState createState() {
-    return new HadithScreenState();
+    return new HadithScreenState(this.title,this.refId);
   }
 }
 
 class HadithScreenState extends State<HadithScreen> {
   bool showX = false;
   Widget formX;
-
+   final String title;
+  int refId=0;
+HadithScreenState(this.title,this.refId);
   bool showProgress = false;
 
   @override
@@ -47,22 +51,28 @@ class HadithScreenState extends State<HadithScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: myAppBAR(context), body: GetTafseer());
+    return Scaffold(appBar: myAppBAR(context), body: GetHadith(this.title,this.refId));
   }
 }
 
-class GetTafseer extends StatefulWidget {
+class GetHadith extends StatefulWidget {
+ GetHadith(this.title,this.refId);
+
+  final String title;
+  int refId=0;
   @override
-  GetTafseerState createState() {
-    return new GetTafseerState();
+  GetHadithState createState() {
+    return new GetHadithState(this.title,this.refId);
   }
 }
 
-class GetTafseerState extends State<GetTafseer> {
+class GetHadithState extends State<GetHadith> {
   // var _dbIsExist;
   final keyScf = new GlobalKey<ScaffoldState>();
   final TextEditingController txtsrch = TextEditingController();
-   
+    final String title;
+  int refId=0;
+GetHadithState(this.title,this.refId);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +109,7 @@ class GetTafseerState extends State<GetTafseer> {
         ),
         body: Container(
           child: FutureBuilder<List>(
-            future: getAllHadith(txtsrch.text),
+            future: getAllHadith(txtsrch.text,refId),
             initialData: List(),
             builder: (context, snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
@@ -116,10 +126,19 @@ class GetTafseerState extends State<GetTafseer> {
   }
 
   var db = new HadithDBHelper();
-  Future<List<Hfull>> getAllHadith([String txt]) async {
+  Future<List<Hfull>> getAllHadith([String txt,int refId=0]) async {
     List<Hfull> zcatsX = new List<Hfull>();
     //txt="زيد";
-    var myAyat = await db.getAllData(txt: txt);
+    dynamic myAyat ;
+    if(refId==0)
+    {
+    myAyat= await db.getAllData(txt: txt);
+    }
+    else
+    {
+          myAyat= await db.getAllDataByBook(bookId:  refId);
+
+    }
     
     for (int i = 0; i < myAyat.length; i++) {
       Hfull hfull = Hfull.map(myAyat[i]);
@@ -127,7 +146,7 @@ class GetTafseerState extends State<GetTafseer> {
     }
     return zcatsX.toList();
   }
-}
+
 
 Widget listViewData(
     BuildContext context, AsyncSnapshot<List> snapshot,TextEditingController txtsrch) {
@@ -140,6 +159,12 @@ Widget listViewData(
               child: Text("No Data"),
             );
              
+
+var txtRes=txtsrch.text.trim()==""?"${item.txt} ":
+"${item.bookName} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ";
+
+
+
               result = new Directionality(
                   textDirection: TextDirection.rtl,
                   child: Card(
@@ -154,7 +179,7 @@ Widget listViewData(
                       ),
                       title: Text(
                         // ToDo :مراجعة 
-                        "${item.bookName} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ",
+                        txtRes,
                         textDirection: TextDirection.rtl,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
@@ -163,10 +188,35 @@ Widget listViewData(
                             color: Color(0xFF061375)),
                       ),
                       onTap: () {
+
+dynamic xX;
+
+if(txtsrch.text=="")
+{
+  if(refId==0)
+  {
+xX=HadithScreen(title:this.title,refId:item.id);
+  }
+else
+{
+
+// item.subId=item.id;
+// item.refId=refId;
+// item.id=0;
+var itemX=Hfull(0, 0, 0, item.id,'',0, '', '', '', '',refId, '', '');
+xX=HadithPage(item:itemX);
+}
+}
+else
+{
+xX=HadithPage(item: item);
+}
+
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HadithPage(item),
+                            builder: (context) => xX,
                           ),
                         );
                       },
@@ -180,4 +230,5 @@ Widget listViewData(
       : Center(
           child: CircularProgressIndicator(),
         );
+}
 }

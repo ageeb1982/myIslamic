@@ -13,10 +13,11 @@ import 'package:after_layout/after_layout.dart';
 import 'package:share/share.dart';
 //import 'package:share/share.dart';
 
-class HadithPage extends StatefulWidget {
+class HadithPage extends StatefulWidget
+ {
   final Hfull item;
-
-  HadithPage(this.item);
+ int refId=0;
+  HadithPage({this.item});
 
   @override
   HadithPageState createState() {
@@ -29,7 +30,9 @@ class HadithPageState extends State<HadithPage>
   var db = new HadithDBHelper(); // CALLS FUTURE
   final Hfull hadithX;
   int selectItemPos = 0;
-  HadithPageState(this.hadithX) {
+  int refId=0;
+  HadithPageState([this.hadithX,this.refId=0]) 
+  {
     selectItemPos = 0;
   }
   PageController _controller = new PageController();
@@ -53,13 +56,15 @@ class HadithPageState extends State<HadithPage>
   @override
   Widget build(BuildContext context) {
     final key = new GlobalKey<ScaffoldState>();
+dynamic result;
+if(refId==0){
+    result= Scaffold(
 
-    return Scaffold(
         resizeToAvoidBottomPadding: false,
         key: key,
         appBar: AppBar(title: Text(hadithTITLE)),
         body: FutureBuilder<List>(
-          future: getQuranitemList(bookIdX: hadithX.bookId),
+          future: getHadithItemList(),
 
           // future: getZikritemList(widget.item.id),
           initialData: List(),
@@ -85,12 +90,7 @@ class HadithPageState extends State<HadithPage>
                     itemBuilder: (_, int position) {
                       String txt = snapshot.data[position].txt;
                       final item = snapshot.data[position];
-                      // Color iconColor=snapshot.data[position].tafseer==null?Colors.deepPurple[100]:Colors.red[300];
-                      // final isSelect =
-                      //     ayahX.ayah == item.ayah && ayahX.sura == item.sura;
-                      // if (isSelect) {
-                      //   selectItemPos = position;
-                      // }
+                     
                       return new Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
@@ -111,15 +111,13 @@ class HadithPageState extends State<HadithPage>
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: <Widget>[
-                                                Text(
-                                                  item.sura.toString() +
-                                                          "/" +
-                                                          " سورة " +
-                                                          item.suraName +
-                                                          " => آية رقم " +
-                                                          item.ayah.toString() +
+                                                Text("كتاب / "+
+                                                item.bookName + " => "
+                                                   
+                                                        
                                                           " => صفحة " +
                                                           item.page.toString()
+                                                          
                                                       //+" ( "+  (snapshot.data.length).toString() +" / " + (position+1).toString() +" )"
                                                       ,
                                                   style: TextStyle(
@@ -145,7 +143,7 @@ class HadithPageState extends State<HadithPage>
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  item.tafseer,
+                                                  item.bookName + " \ "+ 'صفحة (${item.page}) طبعة (${item.shop})',
                                                   textAlign: TextAlign.center,
                                                 )
                                               ],
@@ -169,34 +167,39 @@ class HadithPageState extends State<HadithPage>
                                                     icon: Icon(
                                                         FontAwesomeIcons.copy,
                                                         color: Colors.blue),
-                                                    onPressed: () {
-                                                      //String cat = item.txt;
-                                                      String ayahX = item.txt;
-                                                      String src = "";
-                                                      String virt = "";
-                                                      src =
-                                                          "*المصدر: *تفسير السعدي";
-                                                      if (item.tafseer !=
-                                                          null) {
-                                                        virt =
-                                                            "تفسير الآية:\n" +
-                                                                item.tafseer;
-                                                      }
-                                                      var fullTafseer =
-                                                          "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
-                                                      Clipboard.setData(
-                                                          new ClipboardData(
-                                                              text:
-                                                                  fullTafseer));
-                                                      key.currentState
-                                                          .showSnackBar(
-                                                              new SnackBar(
-                                                        content:
-                                                            new Text("تم نسخ"),
-                                                        duration: Duration(
-                                                            seconds: 1),
-                                                      ));
+                                                    onPressed: () 
+                                                    {
+                                                      
+                                                    //   String ayahX = item.txt;
+                                                    //   String src = "";
+                                                    //   String virt = "";
+                                                    //   src =
+                                                    //       "*المصدر: *تفسير السعدي";
+                                                    //   if (item.tafseer !=
+                                                    //       null) {
+                                                    //     virt =
+                                                    //         "تفسير الآية:\n" +
+                                                    //             item.tafseer;
+                                                    //   }
+                                                    //   var fullTafseer =
+                                                    //       "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
+                                                    //   Clipboard.setData(
+                                                    //       new ClipboardData(
+                                                    //           text:
+                                                    //               fullTafseer));
+                                                    //   key.currentState
+                                                    //       .showSnackBar(
+                                                    //           new SnackBar(
+                                                    //     content:
+                                                    //         new Text("تم نسخ"),
+                                                    //     duration: Duration(
+                                                    //         seconds: 1),
+                                                    //   ));
                                                     },
+                                                 
+                                                 
+                                                 //=======================================
+                                                 
                                                   ),
                                                   Text("نسخ التفسير")
                                                 ],
@@ -213,29 +216,29 @@ class HadithPageState extends State<HadithPage>
                                                             .shareAlt,
                                                         color: Colors.purple),
                                                     onPressed: () {
-                                                      String ayahX = item.txt;
-                                                      String src = "";
-                                                      String virt = "";
-                                                      src =
-                                                          "*المصدر: *تفسير السعدي";
-                                                      if (item.tafseer !=
-                                                          null) {
-                                                        virt =
-                                                            "تفسير الآية:\n" +
-                                                                item.tafseer;
-                                                      }
-                                                      var fullTafseer =
-                                                          "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
-                                                      String zZ = fullTafseer;
-                                                      final RenderBox box =
-                                                          context
-                                                              .findRenderObject();
-                                                      Share.share(zZ,
-                                                          sharePositionOrigin:
-                                                              box.localToGlobal(
-                                                                      Offset
-                                                                          .zero) &
-                                                                  box.size);
+                                                      // String ayahX = item.txt;
+                                                      // String src = "";
+                                                      // String virt = "";
+                                                      // src =
+                                                      //     "*المصدر: *تفسير السعدي";
+                                                      // if (item.tafseer !=
+                                                      //     null) {
+                                                      //   virt =
+                                                      //       "تفسير الآية:\n" +
+                                                      //           item.tafseer;
+                                                      // }
+                                                      // var fullTafseer =
+                                                      //     "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
+                                                      // String zZ = fullTafseer;
+                                                      // final RenderBox box =
+                                                      //     context
+                                                      //         .findRenderObject();
+                                                      // Share.share(zZ,
+                                                      //     sharePositionOrigin:
+                                                      //         box.localToGlobal(
+                                                      //                 Offset
+                                                      //                     .zero) &
+                                                      //             box.size);
                                                     },
                                                   ),
                                                   Text("مشاركة التفسير")
@@ -254,6 +257,15 @@ class HadithPageState extends State<HadithPage>
             }
           },
         ));
+  
+  
+}
+else
+{
+
+}
+  return result;
+  
   }
 
   Widget listViewData(
@@ -301,9 +313,20 @@ class HadithPageState extends State<HadithPage>
           );
   }
 
-  Future<List<Hfull>> getQuranitemList({int bookIdX}) async {
+  Future<List<Hfull>> getHadithItemList() async {
     List<Hfull> zcatsX = new List<Hfull>();
-    var myzikrCat = await db.getAllDataByBook(bookId: bookIdX);
+    var myzikrCat ;
+    // if(refId==0)
+    // {
+    //  myzikrCat = await db.getAllDataByBook(bookId:hadithX.bookId);
+    // }
+    // else
+    //  {
+       myzikrCat = await db.getAllDataByBookAndSub(bookId: hadithX.bookId,subId:hadithX.subId );
+      //  }
+    
+    
+    
     for (int i = 0; i < myzikrCat.length; i++) {
       Hfull zCat = Hfull.map(myzikrCat[i]);
       //debugPrint("${zCat.suraName} الآية: ${zCat.ayah}");

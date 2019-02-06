@@ -128,11 +128,14 @@ if(bookId==null|| bookId==0){bookId=1;}
 
 
 
-sql=sqlHadith;
-ordX=" order by Hadith.ref_id,Hadith.page, Hadith.num   ASC";
+sql="""SELECT  Hadith.sub_id as id, HSubject.HSubject as txt,Hadith.ref_id 
+ FROM Hadith INNER JOIN HSubject ON Hadith.sub_id = HSubject.id 
+ where Hadith.ref_id=$bookId
+ group by Hadith.sub_id, HSubject.HSubject,Hadith.ref_id """;
+
+ordX="";
  
-sql="$sql Where Hadith.ref_id = $bookId ";
-  
+   
 
 qury="$sql $ordX";     
 // qury="$sql";     
@@ -168,7 +171,7 @@ if(txt!=""){
 }
 else
 {
-  sql="SELECT * FROM HBook";
+  sql="select id ,book_Name as txt from Hbook";
   ordX="";
 }
 
