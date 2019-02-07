@@ -195,7 +195,7 @@ Widget listZikrData(BuildContext context, AsyncSnapshot<List> snapshot,ZCat cIte
              String virt="";
              if(item.source!=null){src="المصدر:"+item.source;}
              if(item.virtue!=null){virt="المتن:"+item.virtue;}
-              Clipboard.setData(new ClipboardData(text: "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم"));
+              Clipboard.setData(new ClipboardData(text: "$cat\n---------\n$zikr\n----------\n$virt\n$src\n\nبواسطة تطبيق مساعد المسلم اليومي"));
               key.currentState.showSnackBar(
                     new SnackBar(content: new Text("تم نسخ"),duration:Duration(seconds: 1),));
               

@@ -18,12 +18,12 @@ import 'package:myislamic/utils/HadithDBHelper.dart';
 //   }
 
 //  }
-
+ 
 class HadithScreen extends StatefulWidget {
-  HadithScreen({this.title,this.refId=0});
-  
+
+   HadithScreen({this.title,this.refId});
   final String title;
-  int refId=0;
+  final int refId;
 
   @override
   HadithScreenState createState() {
@@ -59,15 +59,18 @@ class GetHadith extends StatefulWidget {
  GetHadith(this.title,this.refId);
 
   final String title;
-  int refId=0;
+  final int refId;
   @override
   GetHadithState createState() {
-    return new GetHadithState(this.title,this.refId);
+    int refIdX=refId;
+    if(refIdX==null){refIdX=0;}
+    return new GetHadithState(this.title,refIdX);
   }
 }
 
 class GetHadithState extends State<GetHadith> {
   // var _dbIsExist;
+  var isBook=false;
   final keyScf = new GlobalKey<ScaffoldState>();
   final TextEditingController txtsrch = TextEditingController();
     final String title;
@@ -130,9 +133,11 @@ GetHadithState(this.title,this.refId);
     List<Hfull> zcatsX = new List<Hfull>();
     //txt="زيد";
     dynamic myAyat ;
-    if(refId==0)
+    
+    if(refId==0 || txt.trim()!="")
     {
     myAyat= await db.getAllData(txt: txt);
+    if(txt.trim()==""){isBook=true;}
     }
     else
     {
@@ -161,10 +166,10 @@ Widget listViewData(
              
 
 var txtRes=txtsrch.text.trim()==""?"${item.txt} ":
-"${item.bookName} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ";
+"${item.ref} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ";
 
 
-
+if(isBook){txtRes="كتاب / $txtRes";}
               result = new Directionality(
                   textDirection: TextDirection.rtl,
                   child: Card(

@@ -20,12 +20,12 @@ import 'package:path_provider/path_provider.dart';
 
 class DownloadFileOrg extends StatefulWidget
  {
-   String url = "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
-  bool downloading = false;
-  var progressString = "";
-String fileName,displayName;
+  final String url; //= "http:\/\/android.quran.com\/data\/getTranslation.php?id=25&ext=zip";
+  final bool downloading = false;
+  final String progressString = "";
+final String fileName,displayName;
 
-  bool run=false;
+  final bool run;
   
   DownloadFileOrg({this.url,this.fileName,this.displayName,this.run=true});
   

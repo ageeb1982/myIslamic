@@ -184,7 +184,7 @@ _controller.jumpToPage(pos);
                                                           virt = "تفسير الآية:\n" +
                                                               item.tafseer;
                                                         }
-                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
+                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم اليومي*";
                                                         Clipboard.setData(
                                                             new ClipboardData(
                                                                 text:
@@ -224,7 +224,7 @@ _controller.jumpToPage(pos);
                                                           virt = "تفسير الآية:\n" +
                                                               item.tafseer;
                                                         }
-                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
+                                                        var fullTafseer="$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم اليومي*";
                                                         String zZ =
                                                            fullTafseer;
                                                         final RenderBox box =

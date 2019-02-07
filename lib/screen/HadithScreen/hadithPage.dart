@@ -10,13 +10,13 @@ import 'package:after_layout/after_layout.dart';
 
 // import 'package:myislamic/screen/ZikrScreen/ZikrHeaderBanner.dart';
 // import 'package:myislamic/utils/ZikrDBHelper.dart';
+// import 'package:share/share.dart';
 import 'package:share/share.dart';
-//import 'package:share/share.dart';
 
 class HadithPage extends StatefulWidget
  {
   final Hfull item;
- int refId=0;
+//  final int refId;
   HadithPage({this.item});
 
   @override
@@ -45,7 +45,10 @@ class HadithPageState extends State<HadithPage>
     // _controller.animateTo((100.0 * (pos-1)), // 100 is the height of container and index of 6th element is 5
     //     duration: const Duration(milliseconds: 300),
     //     curve: Curves.easeOut);
-    _controller.jumpToPage(pos);
+    if(pos!=0)
+    {
+      _controller.jumpToPage(pos);
+    }
   }
 
   @override
@@ -112,10 +115,8 @@ if(refId==0){
                                                       .spaceBetween,
                                               children: <Widget>[
                                                 Text("كتاب / "+
-                                                item.bookName + " => "
-                                                   
-                                                        
-                                                          " => صفحة " +
+                                                item.bookName +
+                                                    " => صفحة " +
                                                           item.page.toString()
                                                           
                                                       //+" ( "+  (snapshot.data.length).toString() +" / " + (position+1).toString() +" )"
@@ -142,8 +143,8 @@ if(refId==0){
                                                 SizedBox(
                                                   height: 10,
                                                 ),
-                                                Text(
-                                                  item.bookName + " \ "+ 'صفحة (${item.page}) طبعة (${item.shop})',
+                                                Text("الحكم على الحديث:"+ item.typeName+'\n'+
+                                                'كتاب / '+ item.bookName + "\n"+ 'صفحة (${item.page}) \n ${item.shop} / ${item.printNo}',
                                                   textAlign: TextAlign.center,
                                                 )
                                               ],
@@ -170,38 +171,31 @@ if(refId==0){
                                                     onPressed: () 
                                                     {
                                                       
-                                                    //   String ayahX = item.txt;
-                                                    //   String src = "";
-                                                    //   String virt = "";
-                                                    //   src =
-                                                    //       "*المصدر: *تفسير السعدي";
-                                                    //   if (item.tafseer !=
-                                                    //       null) {
-                                                    //     virt =
-                                                    //         "تفسير الآية:\n" +
-                                                    //             item.tafseer;
-                                                    //   }
-                                                    //   var fullTafseer =
-                                                    //       "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
-                                                    //   Clipboard.setData(
-                                                    //       new ClipboardData(
-                                                    //           text:
-                                                    //               fullTafseer));
-                                                    //   key.currentState
-                                                    //       .showSnackBar(
-                                                    //           new SnackBar(
-                                                    //     content:
-                                                    //         new Text("تم نسخ"),
-                                                    //     duration: Duration(
-                                                    //         seconds: 1),
-                                                    //   ));
+                                                      String hadithX = 'كتاب / '+item.txt;
+                                                      String src = "";
+                                                        src ="الحكم على الحديث:"+ item.typeName+'\n'+ "المصدر: "+ item.bookName + "\n" + 'صفحة (${item.page})\n ${item.shop} / ${item.printNo}';
+                                                      
+                                                      var fullHadith =
+                                                          "$hadithX\n----------\n\n$src\n\n*بواسطة تطبيق مساعد المسلم اليومي*";
+                                                      Clipboard.setData(
+                                                          new ClipboardData(
+                                                              text:
+                                                                  fullHadith));
+                                                      key.currentState
+                                                          .showSnackBar(
+                                                              new SnackBar(
+                                                        content:
+                                                            new Text("تم نسخ"),
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                      ));
                                                     },
                                                  
                                                  
                                                  //=======================================
                                                  
                                                   ),
-                                                  Text("نسخ التفسير")
+                                                  Text("نسخ الحديث")
                                                 ],
                                               ),
                                               SizedBox(
@@ -216,32 +210,24 @@ if(refId==0){
                                                             .shareAlt,
                                                         color: Colors.purple),
                                                     onPressed: () {
-                                                      // String ayahX = item.txt;
-                                                      // String src = "";
-                                                      // String virt = "";
-                                                      // src =
-                                                      //     "*المصدر: *تفسير السعدي";
-                                                      // if (item.tafseer !=
-                                                      //     null) {
-                                                      //   virt =
-                                                      //       "تفسير الآية:\n" +
-                                                      //           item.tafseer;
-                                                      // }
-                                                      // var fullTafseer =
-                                                      //     "$ayahX\n----------\n$virt\n\n$src\n\n*بواسطة تطبيق مساعد المسلم*";
-                                                      // String zZ = fullTafseer;
-                                                      // final RenderBox box =
-                                                      //     context
-                                                      //         .findRenderObject();
-                                                      // Share.share(zZ,
-                                                      //     sharePositionOrigin:
-                                                      //         box.localToGlobal(
-                                                      //                 Offset
-                                                      //                     .zero) &
-                                                      //             box.size);
+                                                   String hadithX = 'كتاب / '+item.txt;
+                                                      String src = "";
+src ="الحكم على الحديث:"+ item.typeName+'\n'+ "المصدر: "+ item.bookName + "\n" + 'صفحة (${item.page})\n ${item.shop} / ${item.printNo}';                                                      
+                                                      var fullHadith =
+                                                          "$hadithX\n----------\n\n$src\n\n*بواسطة تطبيق مساعد المسلم اليومي*";
+                                                      String zZ = fullHadith;
+                                                      final RenderBox box =
+                                                          context
+                                                              .findRenderObject();
+                                                      Share.share(zZ,
+                                                          sharePositionOrigin:
+                                                              box.localToGlobal(
+                                                                      Offset
+                                                                          .zero) &
+                                                                  box.size);
                                                     },
                                                   ),
-                                                  Text("مشاركة التفسير")
+                                                  Text("مشاركة الحديث")
                                                 ],
                                               ),
                                             ],
