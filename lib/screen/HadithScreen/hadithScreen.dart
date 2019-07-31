@@ -166,7 +166,7 @@ Widget listViewData(
              
 
 var txtRes=txtsrch.text.trim()==""?"${item.txt} ":
-"${item.ref} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ";
+"${item.txt.substring(0,item.txt.length>=50?50:item.txt.length)+"...."} /${item.ref} / ${item.typeName} / صفحة رقم : ${item.page.toString()} ";
 
 
 if(isBook){txtRes="كتاب / $txtRes";}

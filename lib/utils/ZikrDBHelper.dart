@@ -71,7 +71,7 @@ Future<List> getAllZikr({int catId=-1}) async
   {
     var dbClient = await  db;
     String _catX="";
-    if(catId!=-1){_catX=" where Cat_id=$catId order  by sn,orderX   ASC ";}
+    if(catId!=-1){_catX=" where Cat_id=$catId order  by orderX   ASC ";}
     var sql = """select * from Zikr   $zikrCatTable   $_catX""";
     List result = await dbClient.rawQuery(sql);
     var ee= result.toList();
